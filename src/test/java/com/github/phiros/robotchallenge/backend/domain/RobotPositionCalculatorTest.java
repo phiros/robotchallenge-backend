@@ -60,4 +60,35 @@ class RobotPositionCalculatorTest {
             assertThat(calculator.execute(instructions)).isEqualTo(expectedResult);
         }
     }
+
+    @Test
+    public void testRobotWalksAgainstWallsIfItTriesToWalkOffGrid() {
+        var instructionsBasedOnScript = List.of(
+                new PositionInstruction(10, 3, RobotHeading.East),
+                new ForwardInstruction(1),
+                new WaitInstruction(),
+                new TurnaroundInstruction(),
+                new ForwardInstruction(5),
+                new RightInstruction(),
+                new ForwardInstruction(4)
+        );
+
+        var expectedPositions = List.of(
+                new RobotPosition(4, 3, RobotHeading.East),
+                new RobotPosition(4, 3, RobotHeading.East),
+                new RobotPosition(4, 3, RobotHeading.East),
+                new RobotPosition(4, 3, RobotHeading.West),
+                new RobotPosition(0, 3, RobotHeading.West),
+                new RobotPosition(0, 3, RobotHeading.North),
+                new RobotPosition(0, 0, RobotHeading.North)
+        );
+
+        var calculator = new RobotPositionCalculator(5, 5);
+
+        for (int i = 0; i < instructionsBasedOnScript.size(); i++) {
+            var instructions = instructionsBasedOnScript.subList(0, i + 1);
+            var expectedResult = expectedPositions.get(i);
+            assertThat(calculator.execute(instructions)).isEqualTo(expectedResult);
+        }
+    }
 }
