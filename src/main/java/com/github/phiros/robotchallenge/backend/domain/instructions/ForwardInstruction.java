@@ -1,5 +1,7 @@
 package com.github.phiros.robotchallenge.backend.domain.instructions;
 
+import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
+
 import java.util.Objects;
 
 public class ForwardInstruction implements RobotMovementInstruction {
@@ -7,6 +9,25 @@ public class ForwardInstruction implements RobotMovementInstruction {
 
     public ForwardInstruction(int gridSteps) {
         this.gridSteps = gridSteps;
+    }
+
+    @Override
+    public RobotPosition execute(RobotPosition before) {
+        var x = before.getX();
+        var y = before.getY();
+        var heading = before.getHeading();
+
+        switch (heading) {
+            case North:
+                return new RobotPosition(x, y - gridSteps, heading);
+            case East:
+                return new RobotPosition(x + gridSteps, y, heading);
+            case South:
+                return new RobotPosition(x, y + gridSteps, heading);
+            case West:
+                return new RobotPosition(x - gridSteps, y, heading);
+        }
+        return before;
     }
 
     @Override

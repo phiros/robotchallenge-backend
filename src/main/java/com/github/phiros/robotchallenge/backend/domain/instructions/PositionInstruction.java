@@ -1,6 +1,7 @@
 package com.github.phiros.robotchallenge.backend.domain.instructions;
 
 import com.github.phiros.robotchallenge.backend.domain.RobotHeading;
+import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
 
 import java.util.Objects;
 
@@ -13,6 +14,11 @@ public class PositionInstruction implements RobotMovementInstruction {
         this.x = x;
         this.y = y;
         this.heading = heading;
+    }
+
+    @Override
+    public RobotPosition execute(RobotPosition before) {
+        return new RobotPosition(x, y, heading);
     }
 
     @Override

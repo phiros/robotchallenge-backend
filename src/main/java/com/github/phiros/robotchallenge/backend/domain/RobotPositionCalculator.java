@@ -14,6 +14,10 @@ public class RobotPositionCalculator {
     }
 
     public RobotPosition execute(List<RobotMovementInstruction> movementInstructions) {
-        return null;
+        RobotPosition position = RobotPosition.DEFAULT_POSITION;
+        for (RobotMovementInstruction instruction : movementInstructions) {
+            position = instruction.execute(position);
+        }
+        return position;
     }
 }

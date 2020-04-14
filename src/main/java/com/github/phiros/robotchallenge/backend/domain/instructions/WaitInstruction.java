@@ -1,6 +1,13 @@
 package com.github.phiros.robotchallenge.backend.domain.instructions;
 
+import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
+
 public class WaitInstruction implements RobotMovementInstruction {
+    @Override
+    public RobotPosition execute(RobotPosition before) {
+        return before;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

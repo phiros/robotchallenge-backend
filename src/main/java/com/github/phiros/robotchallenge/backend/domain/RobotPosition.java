@@ -41,4 +41,13 @@ public class RobotPosition {
     public int hashCode() {
         return Objects.hash(getX(), getY(), getHeading());
     }
+
+    @Override
+    public String toString() {
+        return "RobotPosition{" +
+                "x=" + x +
+                ", y=" + y +
+                ", heading=" + heading +
+                '}';
+    }
 }
