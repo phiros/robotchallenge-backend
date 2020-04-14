@@ -1,7 +1,9 @@
-package com.github.phiros.robotchallenge.backend.controller;
+package com.github.phiros.robotchallenge.backend.web;
 
 import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
 import com.github.phiros.robotchallenge.backend.services.RobotPositionService;
+import com.github.phiros.robotchallenge.backend.web.mapper.RobotPositionToGridMapper;
+import com.github.phiros.robotchallenge.backend.web.model.Grid;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

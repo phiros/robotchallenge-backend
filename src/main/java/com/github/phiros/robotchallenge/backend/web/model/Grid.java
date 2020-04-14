@@ -1,4 +1,4 @@
-package com.github.phiros.robotchallenge.backend.controller;
+package com.github.phiros.robotchallenge.backend.web.model;
 
 import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
 

@@ -1,6 +1,8 @@
-package com.github.phiros.robotchallenge.backend.controller;
+package com.github.phiros.robotchallenge.backend.web;
 
 import com.github.phiros.robotchallenge.backend.services.RobotPositionService;
+import com.github.phiros.robotchallenge.backend.web.mapper.RobotPositionToGridMapper;
+import com.github.phiros.robotchallenge.backend.web.model.FormData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
