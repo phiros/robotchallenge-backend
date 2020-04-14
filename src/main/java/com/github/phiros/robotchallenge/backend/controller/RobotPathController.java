@@ -13,6 +13,9 @@ public class RobotPathController {
     @Autowired
     private RobotPositionService robotPositionService;
 
+    @Autowired
+    private RobotPositionToGridMapper robotPositionToGridMapper;
+
     @GetMapping(path = "/")
     public String form(Model model) {
         model.addAttribute("formData", new FormData());
@@ -20,8 +23,10 @@ public class RobotPathController {
     }
 
     @PostMapping(path = "/robotposition", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String robotPosition(FormData formData) {
-        robotPositionService.calculateRobotPosition(formData.script);
+    public String robotPosition(FormData formData, Model model) {
+        var position = robotPositionService.calculateRobotPosition(formData.script);
+        var grid = robotPositionToGridMapper.map(position);
+        model.addAttribute("gridRows", grid.rows());
         return "robotposition";
     }
 }

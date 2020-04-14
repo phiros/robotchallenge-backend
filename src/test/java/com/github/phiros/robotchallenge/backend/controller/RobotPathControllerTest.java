@@ -15,8 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(RobotPathController.class)
 public class RobotPathControllerTest {
@@ -25,6 +24,9 @@ public class RobotPathControllerTest {
 
     @MockBean
     private RobotPositionService robotPositionService;
+
+    @MockBean
+    private RobotPositionToGridMapper robotPositionToGridMapper;
 
     @Test
     public void testRootRouteExists() throws Exception {
@@ -47,38 +49,14 @@ public class RobotPathControllerTest {
     }
 
     @Test
-    public void testRobotPositionRouteAcceptsSubmittedScript() throws Exception {
+    public void testScriptIsTranslatedInGridWhichContainsRobot() throws Exception {
         var predefinedScript = String.join(System.getProperty("line.separator"),
-                "POSITION 1 3 EAST //sets the initial position for the robot",
-                "FORWARD 3 //lets the robot do 3 steps forward",
-                "WAIT //lets the robot do nothing",
-                "TURNAROUND //lets the robot turn around",
-                "FORWARD 1 //lets the robot do 1 step forward",
-                "RIGHT //lets the robot turn right",
-                "FORWARD 2 //lets the robot do 2 steps forward"
+                "WAIT //lets the robot do nothing"
         );
 
-        var result = mockMvc.perform(
-                post("/robotposition")
-                        .param("script", predefinedScript))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andReturn();
-    }
-
-    @Test
-    public void testRobotPositionRouteForwardsSubmittedScriptToService() throws Exception {
-        var predefinedScript = String.join(System.getProperty("line.separator"),
-                "POSITION 1 3 EAST //sets the initial position for the robot",
-                "FORWARD 3 //lets the robot do 3 steps forward",
-                "WAIT //lets the robot do nothing",
-                "TURNAROUND //lets the robot turn around",
-                "FORWARD 1 //lets the robot do 1 step forward",
-                "RIGHT //lets the robot turn right",
-                "FORWARD 2 //lets the robot do 2 steps forward"
-        );
-
-        when(robotPositionService.calculateRobotPosition(eq(predefinedScript))).thenReturn(new RobotPosition());
+        when(robotPositionService.calculateRobotPosition(eq(predefinedScript))).thenReturn(RobotPosition.DEFAULT_POSITION);
+        Grid expectedGrid = new Grid(5, 5, RobotPosition.DEFAULT_POSITION);
+        when(robotPositionToGridMapper.map(eq(RobotPosition.DEFAULT_POSITION))).thenReturn(expectedGrid);
 
         var result = mockMvc.perform(
                 post("/robotposition")
@@ -86,8 +64,10 @@ public class RobotPathControllerTest {
                         .param("script", predefinedScript))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(model().attribute("gridRows", expectedGrid.rows()))
                 .andReturn();
 
         verify(robotPositionService).calculateRobotPosition(predefinedScript);
+        verify(robotPositionToGridMapper).map(RobotPosition.DEFAULT_POSITION);
     }
 }
