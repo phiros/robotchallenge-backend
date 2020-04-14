@@ -1,4 +1,4 @@
-package com.github.phiros.robotchallenge.backend.parser;
+package com.github.phiros.robotchallenge.backend.web;
 
 import com.github.phiros.robotchallenge.backend.domain.RobotHeading;
 import com.github.phiros.robotchallenge.backend.domain.instructions.*;

@@ -1,7 +1,6 @@
 package com.github.phiros.robotchallenge.backend.web;
 
 import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
-import com.github.phiros.robotchallenge.backend.services.RobotPositionService;
 import com.github.phiros.robotchallenge.backend.web.model.grid.Grid;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(RobotPathController.class)
-public class RobotPathControllerTest {
+@WebMvcTest(RobotPositionController.class)
+public class RobotPositionControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private RobotPositionService robotPositionService;
+    private RobotPositionAdapter robotPositionAdapter;
 
     @Test
     public void testRootRouteExists() throws Exception {
@@ -52,7 +51,7 @@ public class RobotPathControllerTest {
                 "WAIT //lets the robot do nothing"
         );
 
-        when(robotPositionService.calculateRobotPosition(eq(predefinedScript))).thenReturn(RobotPosition.DEFAULT_POSITION);
+        when(robotPositionAdapter.calculateRobotPosition(eq(predefinedScript))).thenReturn(RobotPosition.DEFAULT_POSITION);
         Grid expectedGrid = new Grid(5, 5, RobotPosition.DEFAULT_POSITION);
 
         var result = mockMvc.perform(
@@ -64,7 +63,7 @@ public class RobotPathControllerTest {
                 .andExpect(model().attribute("gridRows", expectedGrid.rows()))
                 .andReturn();
 
-        verify(robotPositionService).calculateRobotPosition(predefinedScript);
+        verify(robotPositionAdapter).calculateRobotPosition(predefinedScript);
         assertThat(expectedGrid.rows()).hasSize(5);
         assertThat(expectedGrid.gridCell(0, 0).isRobotPresent()).isTrue();
     }

@@ -1,21 +1,20 @@
-package com.github.phiros.robotchallenge.backend.services;
+package com.github.phiros.robotchallenge.backend.web;
 
 import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
 import com.github.phiros.robotchallenge.backend.domain.RobotPositionCalculator;
-import com.github.phiros.robotchallenge.backend.parser.RobotScriptParser;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class RobotPositionService {
+@Component
+public class RobotPositionAdapter {
     private RobotScriptParser robotScriptParser;
     private RobotPositionCalculator robotPositionCalculator;
 
-    public RobotPositionService() {
+    public RobotPositionAdapter() {
         robotScriptParser = new RobotScriptParser();
         robotPositionCalculator = new RobotPositionCalculator(5, 5);
     }
 
-    public RobotPositionService(RobotScriptParser robotScriptParser, RobotPositionCalculator robotPositionCalculator) {
+    public RobotPositionAdapter(RobotScriptParser robotScriptParser, RobotPositionCalculator robotPositionCalculator) {
         this.robotScriptParser = robotScriptParser;
         this.robotPositionCalculator = robotPositionCalculator;
     }

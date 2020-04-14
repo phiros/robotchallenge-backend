@@ -1,10 +1,9 @@
-package com.github.phiros.robotchallenge.backend.services;
+package com.github.phiros.robotchallenge.backend.web;
 
 import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
 import com.github.phiros.robotchallenge.backend.domain.RobotPositionCalculator;
 import com.github.phiros.robotchallenge.backend.domain.instructions.RobotMovementInstruction;
 import com.github.phiros.robotchallenge.backend.domain.instructions.WaitInstruction;
-import com.github.phiros.robotchallenge.backend.parser.RobotScriptParser;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -15,7 +14,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class RobotPositionServiceTest {
+class RobotPositionAdapterTest {
 
     @Test
     public void testServiceShouldParseAndCalculatePosition() {
@@ -24,12 +23,12 @@ class RobotPositionServiceTest {
         );
         RobotScriptParser parser = Mockito.mock(RobotScriptParser.class);
         RobotPositionCalculator calculator = Mockito.mock(RobotPositionCalculator.class);
-        RobotPositionService robotPositionService = new RobotPositionService(parser, calculator);
+        RobotPositionAdapter robotPositionAdapter = new RobotPositionAdapter(parser, calculator);
         List<RobotMovementInstruction> robotMovementInstructions = List.of(new WaitInstruction());
         when(parser.parse(eq(predefinedScript))).thenReturn(robotMovementInstructions);
         when(calculator.execute(eq(robotMovementInstructions))).thenReturn(RobotPosition.DEFAULT_POSITION);
 
-        var robotPosition = robotPositionService.calculateRobotPosition(predefinedScript);
+        var robotPosition = robotPositionAdapter.calculateRobotPosition(predefinedScript);
 
         verify(parser).parse(predefinedScript);
         verify(calculator).execute(robotMovementInstructions);
