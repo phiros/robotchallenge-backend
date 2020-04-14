@@ -65,5 +65,7 @@ public class RobotPathControllerTest {
                 .andReturn();
 
         verify(robotPositionService).calculateRobotPosition(predefinedScript);
+        assertThat(expectedGrid.rows()).hasSize(5);
+        assertThat(expectedGrid.gridCell(0, 0).isRobotPresent()).isTrue();
     }
 }
