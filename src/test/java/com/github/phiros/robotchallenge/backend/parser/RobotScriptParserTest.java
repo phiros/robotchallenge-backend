@@ -1,6 +1,7 @@
 package com.github.phiros.robotchallenge.backend.parser;
 
-import com.github.phiros.robotchallenge.backend.domain.*;
+import com.github.phiros.robotchallenge.backend.domain.RobotHeading;
+import com.github.phiros.robotchallenge.backend.domain.instructions.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

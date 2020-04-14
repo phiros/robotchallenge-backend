@@ -1,6 +1,6 @@
-package com.github.phiros.robotchallenge.backend.domain;
+package com.github.phiros.robotchallenge.backend.domain.instructions;
 
-public class WaitInstruction implements RobotMovementInstruction {
+public class TurnaroundInstruction implements RobotMovementInstruction {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -9,11 +9,11 @@ public class WaitInstruction implements RobotMovementInstruction {
 
     @Override
     public int hashCode() {
-        return 43;
+        return 44;
     }
 
     @Override
     public String toString() {
-        return "WaitInstruction{}";
+        return "TurnaroundInstruction{}";
     }
 }

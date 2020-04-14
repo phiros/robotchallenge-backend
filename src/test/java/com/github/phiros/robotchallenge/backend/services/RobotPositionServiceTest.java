@@ -1,9 +1,9 @@
 package com.github.phiros.robotchallenge.backend.services;
 
-import com.github.phiros.robotchallenge.backend.domain.RobotMovementInstruction;
 import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
 import com.github.phiros.robotchallenge.backend.domain.RobotPositionCalculator;
-import com.github.phiros.robotchallenge.backend.domain.WaitInstruction;
+import com.github.phiros.robotchallenge.backend.domain.instructions.RobotMovementInstruction;
+import com.github.phiros.robotchallenge.backend.domain.instructions.WaitInstruction;
 import com.github.phiros.robotchallenge.backend.parser.RobotScriptParser;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

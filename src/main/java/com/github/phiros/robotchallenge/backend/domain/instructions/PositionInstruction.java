@@ -1,4 +1,6 @@
-package com.github.phiros.robotchallenge.backend.domain;
+package com.github.phiros.robotchallenge.backend.domain.instructions;
+
+import com.github.phiros.robotchallenge.backend.domain.RobotHeading;
 
 import java.util.Objects;
 

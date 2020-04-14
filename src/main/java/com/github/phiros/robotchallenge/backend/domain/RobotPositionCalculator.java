@@ -1,5 +1,7 @@
 package com.github.phiros.robotchallenge.backend.domain;
 
+import com.github.phiros.robotchallenge.backend.domain.instructions.RobotMovementInstruction;
+
 import java.util.List;
 
 public class RobotPositionCalculator {
