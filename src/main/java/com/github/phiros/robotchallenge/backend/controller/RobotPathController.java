@@ -4,6 +4,7 @@ import com.github.phiros.robotchallenge.backend.services.RobotPositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -13,7 +14,8 @@ public class RobotPathController {
     private RobotPositionService robotPositionService;
 
     @GetMapping(path = "/")
-    public String form() {
+    public String form(Model model) {
+        model.addAttribute("formData", new FormData());
         return "form";
     }
 

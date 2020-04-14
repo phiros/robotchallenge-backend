@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Robopath</title>
+  <title>Robot position</title>
   <style>
     textarea {
       width: 100vw;
@@ -19,7 +19,7 @@
   </style>
 </head>
 <body>
-<form action="#" method="post">
+<form action="#" th:action="@{/robotposition}" method="post" th:object="${formData}">
   <p>
     <label for="script">
     <textarea id="script" th:name="script">
