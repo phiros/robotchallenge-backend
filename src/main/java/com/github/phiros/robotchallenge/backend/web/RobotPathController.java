@@ -2,7 +2,7 @@ package com.github.phiros.robotchallenge.backend.web;
 
 import com.github.phiros.robotchallenge.backend.services.RobotPositionService;
 import com.github.phiros.robotchallenge.backend.web.model.FormData;
-import com.github.phiros.robotchallenge.backend.web.model.Grid;
+import com.github.phiros.robotchallenge.backend.web.model.grid.Grid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
