@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Robot position</title>
+  <style>
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 90vw;
+      height: 90vh;
+      text-align: center;
+    }
+
+    table, td {
+      border: 1px solid black;
+    }
+
+    tbody {
+      height: 100%;
+    }
+
+    td {
+      width: 20%;
+      overflow: hidden;
+    }
+
+    tr {
+      height: 20%;
+    }
+
+    .robot {
+      font-size: 5vw;
+    }
+
+    .north {
+      display: block;
+      transform: rotate(180deg);
+    }
+
+    .east {
+      display: block;
+      transform: rotate(-90deg);
+    }
+
+    .south {
+      display: block;
+      transform: rotate(0deg);
+    }
+
+    .west {
+      display: block;
+      transform: rotate(90deg);
+    }
+  </style>
 </head>
 <body>
-
+<table>
+  <th:block th:each="gridRow: ${gridRows}">
+    <tr>
+      <th:block th:each="cell: ${gridRow.cells()}">
+        <td><span th:if="${cell.isRobotPresent()}"
+                  class="robot"
+                  th:classappend="${cell.getRobotHeading()}">🤖</span></td>
+      </th:block>
+    </tr>
+  </th:block>
+</table>
 </body>
 </html>
