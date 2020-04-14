@@ -2,7 +2,6 @@ package com.github.phiros.robotchallenge.backend.web;
 
 import com.github.phiros.robotchallenge.backend.domain.RobotPosition;
 import com.github.phiros.robotchallenge.backend.services.RobotPositionService;
-import com.github.phiros.robotchallenge.backend.web.mapper.RobotPositionToGridMapper;
 import com.github.phiros.robotchallenge.backend.web.model.Grid;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ public class RobotPathControllerTest {
 
     @MockBean
     private RobotPositionService robotPositionService;
-
-    @MockBean
-    private RobotPositionToGridMapper robotPositionToGridMapper;
 
     @Test
     public void testRootRouteExists() throws Exception {
@@ -58,7 +54,6 @@ public class RobotPathControllerTest {
 
         when(robotPositionService.calculateRobotPosition(eq(predefinedScript))).thenReturn(RobotPosition.DEFAULT_POSITION);
         Grid expectedGrid = new Grid(5, 5, RobotPosition.DEFAULT_POSITION);
-        when(robotPositionToGridMapper.map(eq(RobotPosition.DEFAULT_POSITION))).thenReturn(expectedGrid);
 
         var result = mockMvc.perform(
                 post("/robotposition")
@@ -70,6 +65,5 @@ public class RobotPathControllerTest {
                 .andReturn();
 
         verify(robotPositionService).calculateRobotPosition(predefinedScript);
-        verify(robotPositionToGridMapper).map(RobotPosition.DEFAULT_POSITION);
     }
 }
